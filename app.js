@@ -11,13 +11,15 @@ app.get("/", (req, res) => {
   res.send("welcome back to syncdev");
 });
 
-app.post("/users", (req, res) => {
+app.post("/users", async (req, res) => {
   try {
     const userData = new UserModel(req.body);
-    userData.save();
+    const response = await userData.save();
+
     res.status(200).send("user data save successfully");
   } catch (error) {
-    res.status(500).send("something went wrong : ", error.message);
+    console.log("users data error : ", error);
+    res.status(500).send("something went wrong : ", error);
   }
 });
 
