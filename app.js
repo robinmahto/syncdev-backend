@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectDatabase } from "./config/database.js";
 import UserModel from "./models/users.model.js";
+import { userValidation } from "./utils/userValidation.js";
 
 const app = express();
 dotenv.config();
@@ -13,8 +14,12 @@ app.get("/", (req, res) => {
 
 app.post("/users", async (req, res) => {
   try {
-    const userData = new UserModel(req.body);
-    const response = await userData.save();
+    const { error, value } = userValidation.validate();
+    if(error){
+        throw Error("validation error failed")
+    }
+    const userData = new UserModel(value);
+    await userData.save();
 
     res.status(200).send("user data save successfully");
   } catch (error) {

@@ -8,14 +8,14 @@ const userSchema = new Schema(
       type: String,
       trim: true,
       required: [true, "firstName is required"],
-      minLength: [2, "This name should be at least 3 char long"],
+      minLength: [3, "This name should be at least 3 char long"],
       maxLength: [50, "firstName can bot exceed 10 char"],
     },
     lastName: {
       type: String,
       trim: true,
       required: [true, "lastName is required"],
-      minLength: [2, "lastName should be at least 3 char long"],
+      minLength: [3, "lastName should be at least 3 char long"],
       maxLength: [50, "lastName can bot exceed 10 char"],
     },
     email: {
