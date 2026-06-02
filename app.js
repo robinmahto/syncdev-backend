@@ -14,17 +14,20 @@ app.get("/", (req, res) => {
 
 app.post("/users", async (req, res) => {
   try {
-    const { error, value } = userValidation.validate();
-    if(error){
-        throw Error("validation error failed")
+    const { error, value } = userValidation.validate(req.body);
+    if (error) {
+      throw Error(error);
     }
+
     const userData = new UserModel(value);
     await userData.save();
 
     res.status(200).send("user data save successfully");
   } catch (error) {
-    console.log("users data error : ", error);
-    res.status(500).send("something went wrong : ", error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 });
 

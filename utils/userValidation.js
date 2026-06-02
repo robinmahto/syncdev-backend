@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 export const userValidation = Joi.object({
-  firstName: Joi.string().required().min(3).max(50),
+  firstName: Joi.string().required().min(3).max(50).message("firstName is required"),
   lastName: Joi.string().required().min(3).max(50),
   email: Joi.string().email({
     minDomainSegments: 2,
